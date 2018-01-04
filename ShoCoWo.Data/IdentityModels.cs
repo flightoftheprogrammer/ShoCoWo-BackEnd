@@ -29,6 +29,7 @@ namespace ShoCoWo.Data
         }
 
         public DbSet<Wallet> Wallets { get; set; }
+        public DbSet<WalletTransaction> WalletTransactions { get; set; }
 
         public static ApplicationDbContext Create()
         {
