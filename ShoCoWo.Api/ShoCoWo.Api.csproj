@@ -235,7 +235,6 @@
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -313,6 +312,20 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ShoCoWo.Data\ShoCoWo.Data.csproj">
+      <Project>{4826B42E-2B90-43F2-B602-08C1E3C684DF}</Project>
+      <Name>ShoCoWo.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShoCoWo.Models\ShoCoWo.Models.csproj">
+      <Project>{67e43238-5bcf-4066-b63f-42a05614eae6}</Project>
+      <Name>ShoCoWo.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShoCoWo.Services\ShoCoWo.Services.csproj">
+      <Project>{b360d37a-c2da-438f-a068-ecebf34aec73}</Project>
+      <Name>ShoCoWo.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
