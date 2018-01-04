@@ -54,7 +54,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WalletTransaction\CreateWalletTransaction.cs" />
+    <Compile Include="WalletTransaction\WalletTransactionDetail.cs" />
+    <Compile Include="WalletTransaction\WalletTransactionListItem.cs" />
     <Compile Include="Wallet\WalletCreate.cs" />
+    <Compile Include="Wallet\WalletDetail.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
