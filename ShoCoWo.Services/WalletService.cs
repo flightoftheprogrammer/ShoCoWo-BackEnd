@@ -26,6 +26,7 @@ namespace ShoCoWo.Services
                     WalletBalance = model.WalletBalance,
                     CreatedUtc = DateTimeOffset.UtcNow
                 };
+
             using (var ctx = new ApplicationDbContext())
             {
                 ctx.Wallets.Add(entity);
@@ -50,6 +51,21 @@ namespace ShoCoWo.Services
                         WalletBalance = entity.WalletBalance,
                         CreatedUtc = entity.CreatedUtc
                     };
+            }
+        }
+
+        public bool UpdateWalletBalance(decimal amount)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Wallets
+                        .Single(w => w.UserId == _userId);
+
+                entity.WalletBalance += amount;
+
+                return ctx.SaveChanges() == 1;
             }
         }
     }
