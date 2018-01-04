@@ -40,5 +40,11 @@ namespace ShoCoWo.Data
         }
     }
 
-
+    public class IdentityUserRoleConfiguration : EntityTypeConfiguration<IdentityUserRole>
+    {
+        public IdentityUserRoleConfiguration()
+        {
+            HasKey(iur => iur.RoleId);
+        }
+    }
 }
