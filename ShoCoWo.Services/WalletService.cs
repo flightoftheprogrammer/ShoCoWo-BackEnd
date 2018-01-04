@@ -38,10 +38,7 @@ namespace ShoCoWo.Services
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var entity =
-                    ctx
-                        .Wallets
-                        .Single(w => w.UserId == _userId);
+                var entity = GetWallet(ctx);
 
                 return
                     new WalletDetail()
@@ -58,15 +55,20 @@ namespace ShoCoWo.Services
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var entity =
-                    ctx
-                        .Wallets
-                        .Single(w => w.UserId == _userId);
+                var entity = GetWallet(ctx);
 
                 entity.WalletBalance += amount;
 
                 return ctx.SaveChanges() == 1;
             }
+        }
+
+        private Wallet GetWallet(ApplicationDbContext context)
+        {
+            return
+                context
+                    .Wallets
+                    .Single(w => w.UserId == _userId);
         }
     }
 }
