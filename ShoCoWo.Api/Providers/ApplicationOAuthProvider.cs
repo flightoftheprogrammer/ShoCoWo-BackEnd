@@ -10,6 +10,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using ShoCoWo.Api.Models;
+using ShoCoWo.Data;
 
 namespace ShoCoWo.Api.Providers
 {
