@@ -74,12 +74,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Currency.cs" />
+    <Compile Include="Holding.cs" />
+    <Compile Include="HoldingTransaction.cs" />
     <Compile Include="IdentityModels.cs" />
+    <Compile Include="Migrations\201801040412590_initial.cs" />
+    <Compile Include="Migrations\201801040412590_initial.Designer.cs">
+      <DependentUpon>201801040412590_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801041437491_AddedAnnotations.cs" />
+    <Compile Include="Migrations\201801041437491_AddedAnnotations.Designer.cs">
+      <DependentUpon>201801041437491_AddedAnnotations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Wallet.cs" />
+    <Compile Include="WalletTransaction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201801040412590_initial.resx">
+      <DependentUpon>201801040412590_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801041437491_AddedAnnotations.resx">
+      <DependentUpon>201801041437491_AddedAnnotations.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
