@@ -32,5 +32,25 @@ namespace ShoCoWo.Services
                 return ctx.SaveChanges() == 1;
             }
         }
+
+        public WalletDetail GetWallet()
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Wallets
+                        .Single(w => w.UserId == _userId);
+
+                return
+                    new WalletDetail()
+                    {
+                        WalletId = entity.WalletId,
+                        UserId = entity.UserId,
+                        WalletBalance = entity.WalletBalance,
+                        CreatedUtc = entity.CreatedUtc
+                    };
+            }
+        }
     }
 }

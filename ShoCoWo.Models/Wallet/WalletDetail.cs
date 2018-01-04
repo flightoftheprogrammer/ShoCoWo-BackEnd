@@ -8,8 +8,11 @@ using System.Threading.Tasks;
 
 namespace ShoCoWo.Models.Wallet
 {
-    public class WalletCreate
+    public class WalletDetail
     {
+        public int WalletId { get; set; }
+        public Guid UserId { get; set; }
+        public DateTimeOffset CreatedUtc { get; set; }
         public decimal WalletBalance { get; set; }
     }
 }
