@@ -27,7 +27,9 @@ namespace ShoCoWo.Data
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
-        
+
+        public DbSet<Wallet> Wallets { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
