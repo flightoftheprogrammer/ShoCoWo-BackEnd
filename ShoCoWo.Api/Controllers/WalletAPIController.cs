@@ -31,13 +31,6 @@ namespace ShoCoWo.Api.Controllers
 
         }
 
-        private WalletService CreateWalletService()
-        {
-            var userId = Guid.Parse(User.Identity.GetUserId());
-            var walletService = new WalletService(userId);
-            return walletService; 
-
-        }
         //POST /api/wallet
         public IHttpActionResult Post(WalletCreate wallet)
         {
