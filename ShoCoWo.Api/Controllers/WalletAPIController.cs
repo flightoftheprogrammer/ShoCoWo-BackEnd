@@ -18,7 +18,6 @@ namespace ShoCoWo.Api.Controllers
             var userId = Guid.Parse(User.Identity.GetUserId());
             var walletService = new WalletService(userId);
             return walletService;
-
         }
         
         //Get api/wallet
@@ -28,7 +27,6 @@ namespace ShoCoWo.Api.Controllers
             var wallets = walletService.GetWallet();
 
             return Ok(wallets);
-
         }
 
         //POST /api/wallet
@@ -43,6 +41,7 @@ namespace ShoCoWo.Api.Controllers
 
             return Ok();
         }
+
         //PUT /api/wallet
         public IHttpActionResult Put(decimal amount)
         {
