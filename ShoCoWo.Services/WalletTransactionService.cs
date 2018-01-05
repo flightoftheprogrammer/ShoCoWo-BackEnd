@@ -19,7 +19,7 @@ namespace ShoCoWo.Services
             _walletId = walletId;
         }
 
-        public bool CreateWalletTransaction(CreateWalletTransaction model)
+        public bool CreateWalletTransaction(WalletTransactionCreate model)
         {
             var entity =
                 new WalletTransaction()
