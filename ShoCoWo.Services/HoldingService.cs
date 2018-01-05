@@ -66,11 +66,7 @@ namespace ShoCoWo.Services
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var entity =
-                    ctx
-                        .Holdings
-                        .Single(h => h.HoldingId == holdingId &&
-                                    h.Wallet.UserId == _userId);
+                var entity = GetHoldingById(ctx, holdingId);
 
                 return
                     new HoldingDetail()
@@ -82,6 +78,39 @@ namespace ShoCoWo.Services
                         WalletId = entity.WalletId
                     };
             }
+        }
+
+        public bool UpdateMarketValue(int holdingId, decimal amount)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = GetHoldingById(ctx, holdingId);
+
+                entity.MarketValueTotal += amount;
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
+        public bool UpdateHoldingBalance(int holdingId, decimal amount)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = GetHoldingById(ctx, holdingId);
+
+                entity.CryptoHoldingBalance += amount;
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
+        private Holding GetHoldingById(ApplicationDbContext context, int holdingId)
+        {
+            return
+                context
+                    .Holdings
+                    .Single(h => h.HoldingId == holdingId &&
+                                 h.Wallet.UserId == _userId);
         }
     }
 }
