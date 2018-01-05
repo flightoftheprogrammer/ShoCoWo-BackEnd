@@ -8,7 +8,7 @@ using ShoCoWo.Models.Holding;
 
 namespace ShoCoWo.Services
 {
-    class HoldingService
+    public class HoldingService
     {
         private readonly Guid _userId;
         private readonly int _walletId;
