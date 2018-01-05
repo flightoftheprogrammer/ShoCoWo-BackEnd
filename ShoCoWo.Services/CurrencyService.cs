@@ -47,5 +47,24 @@ namespace ShoCoWo.Services
                 return query.ToList();
             }
         }
+
+        public CurrencyDetail GetCurrencyById(int currencyId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Currencies
+                        .Single(c => c.CurrencyId == currencyId);
+
+                return
+                    new CurrencyDetail()
+                    {
+                        CurrencyId = entity.CurrencyId,
+                        CurrencyName = entity.CurrencyName,
+                        CurrencyNameLong = entity.CurrencyNameLong
+                    };
+            }
+        }
     }
 }

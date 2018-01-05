@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Currency\CurrencyCreate.cs" />
+    <Compile Include="Currency\CurrencyDetail.cs" />
     <Compile Include="Currency\CurrencyListItem.cs" />
     <Compile Include="Holding\HoldingCreate.cs" />
     <Compile Include="Holding\HoldingDetail.cs" />
