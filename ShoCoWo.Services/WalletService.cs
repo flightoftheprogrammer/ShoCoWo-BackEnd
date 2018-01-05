@@ -63,6 +63,16 @@ namespace ShoCoWo.Services
             }
         }
 
+        public int GetWalletId()
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = GetWallet(ctx);
+
+                return entity.WalletId;
+            }
+        }
+
         private Wallet GetWallet(ApplicationDbContext context)
         {
             return

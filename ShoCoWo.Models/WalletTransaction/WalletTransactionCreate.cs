@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShoCoWo.Models.WalletTransaction
 {
-    public class CreateWalletTransaction
+    public class WalletTransactionCreate
     {
         public decimal TransactionAmount { get; set; }
     }
