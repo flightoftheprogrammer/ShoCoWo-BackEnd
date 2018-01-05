@@ -38,5 +38,50 @@ namespace ShoCoWo.Services
                 return ctx.SaveChanges() == 1;
             }
         }
+
+        public ICollection<HoldingListItem> GetHoldings()
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var query =
+                    ctx
+                        .Holdings
+                        .Where(h => h.WalletId == _walletId &&
+                                    h.Wallet.UserId == _userId)
+                        .Select(
+                            e => new HoldingListItem()
+                            {
+                                HoldingId = e.HoldingId,
+                                CryptoHoldingBalance = e.CryptoHoldingBalance,
+                                CurrencyId = e.CurrencyId,
+                                MarketValueTotal = e.MarketValueTotal
+                            }
+                        );
+
+                return query.ToList();
+            }
+        }
+
+        public HoldingDetail GetHoldingById(int holdingId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Holdings
+                        .Single(h => h.HoldingId == holdingId &&
+                                    h.Wallet.UserId == _userId);
+
+                return
+                    new HoldingDetail()
+                    {
+                        HoldingId = entity.HoldingId,
+                        CryptoHoldingBalance = entity.CryptoHoldingBalance,
+                        MarketValueTotal = entity.MarketValueTotal,
+                        CurrencyId = entity.CurrencyId,
+                        WalletId = entity.WalletId
+                    };
+            }
+        }
     }
 }
