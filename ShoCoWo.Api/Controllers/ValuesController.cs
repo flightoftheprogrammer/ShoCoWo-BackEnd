@@ -21,7 +21,6 @@ namespace ShoCoWo.Api.Controllers
         {
             return "value";
         }
-    //    Get api/stock
 
         // POST api/values
         public void Post([FromBody]string value)
