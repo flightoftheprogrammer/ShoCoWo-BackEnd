@@ -13,14 +13,15 @@ namespace ShoCoWo.Api.Controllers
     public class WalletAPIController : ApiController
     {
 
-        private WalletService CreateStockService()
+        private WalletService CreateWalletService()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
-            var stockService = new WalletService(userId);
-            return stockService;
+            var walletService = new WalletService(userId);
+            return walletService;
 
         }
-        //Get api/stock
+        
+        //Get api/wallet
         public IHttpActionResult GetWallet()
         {
             WalletService walletService = CreateWalletService();
@@ -37,7 +38,7 @@ namespace ShoCoWo.Api.Controllers
             return walletService; 
 
         }
-        //POST /api/stock
+        //POST /api/wallet
         public IHttpActionResult Post(WalletCreate wallet)
         {
             if (!ModelState.IsValid)
@@ -49,7 +50,7 @@ namespace ShoCoWo.Api.Controllers
 
             return Ok();
         }
-        //PUT /api/stock
+        //PUT /api/wallet
         public IHttpActionResult Put(decimal amount)
         {
             if (!ModelState.IsValid)
