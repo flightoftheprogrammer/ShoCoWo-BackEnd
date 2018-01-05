@@ -28,5 +28,24 @@ namespace ShoCoWo.Services
                 return ctx.SaveChanges() == 1;
             }
         }
+
+        public ICollection<CurrencyListItem> GetCurrencies()
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var query =
+                    ctx
+                        .Currencies
+                        .Select(
+                            c => new CurrencyListItem()
+                            {
+                                CurrencyName = c.CurrencyName,
+                                CurrencyNameLong = c.CurrencyNameLong
+                            }
+                        );
+
+                return query.ToList();
+            }
+        }
     }
 }
