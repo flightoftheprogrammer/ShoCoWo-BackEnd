@@ -75,7 +75,10 @@ namespace ShoCoWo.Services
 
         public bool HasWallet()
         {
-            return (GetWallet() == null) ? false : true;
+            using (var ctx = new ApplicationDbContext())
+            {
+                return (GetWallet(ctx) == null) ? false : true;
+            }
         }
 
         private Wallet GetWallet(ApplicationDbContext context)
