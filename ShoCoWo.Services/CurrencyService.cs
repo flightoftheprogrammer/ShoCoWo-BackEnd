@@ -71,7 +71,7 @@ namespace ShoCoWo.Services
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var entity = GetCurrencyById(model.CurrencyId);
+                var entity = GetCurrency(model.CurrencyId);
 
                 entity.CurrencyName = model.CurrencyName;
                 entity.CurrencyNameLong = model.CurrencyNameLong;
