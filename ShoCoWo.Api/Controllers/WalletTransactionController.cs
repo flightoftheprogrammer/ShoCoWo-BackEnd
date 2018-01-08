@@ -34,5 +34,14 @@ namespace ShoCoWo.Api.Controllers
             return Ok();
         }
 
+        //Get api/wallet
+        public IHttpActionResult GetWalletTransactions()
+        {
+            WalletTransactionService walletTransactionService = CreateWalletTransactionService();
+            var transactions = walletTransactionService.GetWalletTransactions();
+
+            return Ok(transactions);
+        }
+
     }
 }
