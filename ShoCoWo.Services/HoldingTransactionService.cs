@@ -37,5 +37,28 @@ namespace ShoCoWo.Services
                 return ctx.SaveChanges() == 1;
             }
         }
+
+        public ICollection<HoldingTransactionListItem> GetHoldingTransactions()
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var query =
+                    ctx
+                        .HoldingTransactions
+                        .Where(ht => ht.Holding.Wallet.UserId == _userId &&
+                                     ht.HoldingId == _holdingId)
+                        .Select(
+                            e => new HoldingTransactionListItem()
+                            {
+                                HoldingId = e.HoldingId,
+                                CryptoTransactionAmount = e.CryptoTransactionAmount,
+                                MarketValue = e.MarketValue,
+                                TransactionDate = e.TransactionDate,
+                                HoldingTransactionId = e.HoldingTransactionId
+                            });
+
+                return query.ToList();
+            }
+        }
     }
 }
