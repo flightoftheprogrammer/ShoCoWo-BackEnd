@@ -53,6 +53,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Currency\CurrencyCreate.cs" />
+    <Compile Include="Currency\CurrencyDetail.cs" />
+    <Compile Include="Currency\CurrencyEdit.cs" />
+    <Compile Include="Currency\CurrencyListItem.cs" />
+    <Compile Include="HoldingTransaction\HoldingTransactionCreate.cs" />
+    <Compile Include="HoldingTransaction\HoldingTransactionDetail.cs" />
+    <Compile Include="HoldingTransaction\HoldingTransactionListItem.cs" />
     <Compile Include="Holding\HoldingCreate.cs" />
     <Compile Include="Holding\HoldingDetail.cs" />
     <Compile Include="Holding\HoldingListItem.cs" />
