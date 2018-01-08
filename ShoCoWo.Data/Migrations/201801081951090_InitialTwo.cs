@@ -3,10 +3,74 @@ namespace ShoCoWo.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial : DbMigration
+    public partial class InitialTwo : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.Currency",
+                c => new
+                    {
+                        CurrencyId = c.Int(nullable: false, identity: true),
+                        CurrencyName = c.String(nullable: false, maxLength: 3),
+                        CurrencyNameLong = c.String(nullable: false, maxLength: 20),
+                    })
+                .PrimaryKey(t => t.CurrencyId);
+            
+            CreateTable(
+                "dbo.Holding",
+                c => new
+                    {
+                        HoldingId = c.Int(nullable: false, identity: true),
+                        WalletId = c.Int(nullable: false),
+                        CryptoHoldingBalance = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        CurrencyId = c.Int(nullable: false),
+                        MarketValueTotal = c.Decimal(nullable: false, precision: 18, scale: 2),
+                    })
+                .PrimaryKey(t => t.HoldingId)
+                .ForeignKey("dbo.Currency", t => t.CurrencyId, cascadeDelete: true)
+                .ForeignKey("dbo.Wallet", t => t.WalletId, cascadeDelete: true)
+                .Index(t => t.WalletId)
+                .Index(t => t.CurrencyId);
+            
+            CreateTable(
+                "dbo.HoldingTransaction",
+                c => new
+                    {
+                        HoldingTransactionId = c.Int(nullable: false, identity: true),
+                        HoldingId = c.Int(nullable: false),
+                        CryptoTransactionAmount = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        TransactionDate = c.DateTimeOffset(nullable: false, precision: 7),
+                        MarketValue = c.Decimal(nullable: false, precision: 18, scale: 2),
+                    })
+                .PrimaryKey(t => t.HoldingTransactionId)
+                .ForeignKey("dbo.Holding", t => t.HoldingId, cascadeDelete: true)
+                .Index(t => t.HoldingId);
+            
+            CreateTable(
+                "dbo.Wallet",
+                c => new
+                    {
+                        WalletId = c.Int(nullable: false, identity: true),
+                        UserId = c.Guid(nullable: false),
+                        CreatedUtc = c.DateTimeOffset(nullable: false, precision: 7),
+                        WalletBalance = c.Decimal(nullable: false, precision: 18, scale: 2),
+                    })
+                .PrimaryKey(t => t.WalletId);
+            
+            CreateTable(
+                "dbo.WalletTransaction",
+                c => new
+                    {
+                        WalletTransactionId = c.Int(nullable: false, identity: true),
+                        WalletId = c.Int(nullable: false),
+                        TransactionAmount = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        TransactionDate = c.DateTimeOffset(nullable: false, precision: 7),
+                    })
+                .PrimaryKey(t => t.WalletTransactionId)
+                .ForeignKey("dbo.Wallet", t => t.WalletId, cascadeDelete: true)
+                .Index(t => t.WalletId);
+            
             CreateTable(
                 "dbo.IdentityRole",
                 c => new
@@ -77,51 +141,36 @@ namespace ShoCoWo.Data.Migrations
                 .ForeignKey("dbo.ApplicationUser", t => t.ApplicationUser_Id)
                 .Index(t => t.ApplicationUser_Id);
             
-            CreateTable(
-                "dbo.Wallet",
-                c => new
-                    {
-                        WalletId = c.Int(nullable: false, identity: true),
-                        UserId = c.Guid(nullable: false),
-                        CreatedUtc = c.DateTimeOffset(nullable: false, precision: 7),
-                        WalletBalance = c.Decimal(nullable: false, precision: 18, scale: 2),
-                    })
-                .PrimaryKey(t => t.WalletId);
-            
-            CreateTable(
-                "dbo.WalletTransaction",
-                c => new
-                    {
-                        WalletTransactionId = c.Int(nullable: false, identity: true),
-                        WalletId = c.Int(nullable: false),
-                        TransactionAmount = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        TransactionDate = c.DateTimeOffset(nullable: false, precision: 7),
-                    })
-                .PrimaryKey(t => t.WalletTransactionId)
-                .ForeignKey("dbo.Wallet", t => t.WalletId, cascadeDelete: true)
-                .Index(t => t.WalletId);
-            
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.WalletTransaction", "WalletId", "dbo.Wallet");
             DropForeignKey("dbo.IdentityUserRole", "ApplicationUser_Id", "dbo.ApplicationUser");
             DropForeignKey("dbo.IdentityUserLogin", "ApplicationUser_Id", "dbo.ApplicationUser");
             DropForeignKey("dbo.IdentityUserClaim", "ApplicationUser_Id", "dbo.ApplicationUser");
             DropForeignKey("dbo.IdentityUserRole", "IdentityRole_Id", "dbo.IdentityRole");
-            DropIndex("dbo.WalletTransaction", new[] { "WalletId" });
+            DropForeignKey("dbo.WalletTransaction", "WalletId", "dbo.Wallet");
+            DropForeignKey("dbo.Holding", "WalletId", "dbo.Wallet");
+            DropForeignKey("dbo.HoldingTransaction", "HoldingId", "dbo.Holding");
+            DropForeignKey("dbo.Holding", "CurrencyId", "dbo.Currency");
             DropIndex("dbo.IdentityUserLogin", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.IdentityUserClaim", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.IdentityUserRole", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.IdentityUserRole", new[] { "IdentityRole_Id" });
-            DropTable("dbo.WalletTransaction");
-            DropTable("dbo.Wallet");
+            DropIndex("dbo.WalletTransaction", new[] { "WalletId" });
+            DropIndex("dbo.HoldingTransaction", new[] { "HoldingId" });
+            DropIndex("dbo.Holding", new[] { "CurrencyId" });
+            DropIndex("dbo.Holding", new[] { "WalletId" });
             DropTable("dbo.IdentityUserLogin");
             DropTable("dbo.IdentityUserClaim");
             DropTable("dbo.ApplicationUser");
             DropTable("dbo.IdentityUserRole");
             DropTable("dbo.IdentityRole");
+            DropTable("dbo.WalletTransaction");
+            DropTable("dbo.Wallet");
+            DropTable("dbo.HoldingTransaction");
+            DropTable("dbo.Holding");
+            DropTable("dbo.Currency");
         }
     }
 }

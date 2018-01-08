@@ -10,7 +10,7 @@ using ShoCoWo.Services;
 
 namespace ShoCoWo.Api.Controllers
 {
-    public class WalletAPIController : ApiController
+    public class WalletController : ApiController
     {
 
         private WalletService CreateWalletService()
@@ -34,7 +34,11 @@ namespace ShoCoWo.Api.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             var service = CreateWalletService();
+
+            if (service.HasWallet())
+                return BadRequest();
 
             if (!service.CreateWallet(wallet))
                 return InternalServerError();
@@ -42,8 +46,8 @@ namespace ShoCoWo.Api.Controllers
             return Ok();
         }
 
-        //PUT /api/wallet
-        public IHttpActionResult Put(decimal amount)
+        //PUT /api/wallet updating wallet balance
+        public IHttpActionResult Put(decimal amount) 
         {
             if (!ModelState.IsValid)
                 return BadRequest((ModelState));

@@ -73,12 +73,20 @@ namespace ShoCoWo.Services
             }
         }
 
+        public bool HasWallet()
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                return (GetWallet(ctx) == null) ? false : true;
+            }
+        }
+
         private Wallet GetWallet(ApplicationDbContext context)
         {
             return
                 context
                     .Wallets
-                    .Single(w => w.UserId == _userId);
+                    .SingleOrDefault(w => w.UserId == _userId);
         }
     }
 }
