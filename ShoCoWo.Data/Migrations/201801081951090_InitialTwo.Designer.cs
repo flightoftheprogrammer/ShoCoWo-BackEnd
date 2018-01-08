@@ -7,13 +7,13 @@ namespace ShoCoWo.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class initial : IMigrationMetadata
+    public sealed partial class InitialTwo : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(initial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialTwo));
         
         string IMigrationMetadata.Id
         {
-            get { return "201801040412590_initial"; }
+            get { return "201801081951090_InitialTwo"; }
         }
         
         string IMigrationMetadata.Source
