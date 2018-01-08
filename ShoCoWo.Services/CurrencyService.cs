@@ -66,5 +66,10 @@ namespace ShoCoWo.Services
                     };
             }
         }
+
+        public bool EditCurrency(CurrencyEdit model)
+        {
+
+        }
     }
 }
