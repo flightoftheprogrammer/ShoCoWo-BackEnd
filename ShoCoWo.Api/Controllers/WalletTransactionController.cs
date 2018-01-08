@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
+using ShoCoWo.Models.WalletTransaction;
 using ShoCoWo.Services;
 
 namespace ShoCoWo.Api.Controllers
@@ -18,5 +19,20 @@ namespace ShoCoWo.Api.Controllers
             var service = new WalletTransactionService(userId, walletService.GetWalletId());
             return service;
         }
+
+        //POST /api/wallettransaction 
+        public IHttpActionResult Post(WalletTransactionCreate walletTransaction)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var service = CreateWalletTransactionService();
+
+            if (!service.CreateWalletTransaction(walletTransaction))
+                return InternalServerError();
+
+            return Ok();
+        }
+
     }
 }
