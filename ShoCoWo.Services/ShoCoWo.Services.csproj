@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="CurrencyService.cs" />
     <Compile Include="HoldingService.cs" />
+    <Compile Include="HoldingTransactionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WalletService.cs" />
     <Compile Include="WalletTransactionService.cs" />
