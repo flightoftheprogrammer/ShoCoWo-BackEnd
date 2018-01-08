@@ -48,7 +48,7 @@ namespace ShoCoWo.Services
             }
         }
 
-        public CurrencyDetail GetCurrencyById(int currencyId)
+        public CurrencyDetail GetCurrency(int currencyId)
         {
             using (var ctx = new ApplicationDbContext())
             {
@@ -69,7 +69,15 @@ namespace ShoCoWo.Services
 
         public bool EditCurrency(CurrencyEdit model)
         {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = GetCurrencyById(model.CurrencyId);
 
+                entity.CurrencyName = model.CurrencyName;
+                entity.CurrencyNameLong = model.CurrencyNameLong;
+
+                return ctx.SaveChanges() == 1;
+            }
         }
     }
 }
