@@ -58,6 +58,7 @@
     <Compile Include="Currency\CurrencyEdit.cs" />
     <Compile Include="Currency\CurrencyListItem.cs" />
     <Compile Include="HoldingTransaction\HoldingTransactionCreate.cs" />
+    <Compile Include="HoldingTransaction\HoldingTransactionDetail.cs" />
     <Compile Include="HoldingTransaction\HoldingTransactionListItem.cs" />
     <Compile Include="Holding\HoldingCreate.cs" />
     <Compile Include="Holding\HoldingDetail.cs" />
