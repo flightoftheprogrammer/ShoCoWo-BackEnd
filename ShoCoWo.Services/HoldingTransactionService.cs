@@ -8,15 +8,13 @@ using ShoCoWo.Models.HoldingTransaction;
 
 namespace ShoCoWo.Services
 {
-    class HoldingTransactionService
+    public class HoldingTransactionService
     {
         private readonly Guid _userId;
-        private readonly int _holdingId;
 
-        public HoldingTransactionService(Guid userId, int holdingId)
+        public HoldingTransactionService(Guid userId)
         {
             _userId = userId;
-            _holdingId = holdingId;
         }
 
         public bool CreateHoldingTransaction(HoldingTransactionCreate model)
@@ -38,7 +36,7 @@ namespace ShoCoWo.Services
             }
         }
 
-        public ICollection<HoldingTransactionListItem> GetHoldingTransactions()
+        public ICollection<HoldingTransactionListItem> GetHoldingTransactions(int holdingId)
         {
             using (var ctx = new ApplicationDbContext())
             {
@@ -46,7 +44,7 @@ namespace ShoCoWo.Services
                     ctx
                         .HoldingTransactions
                         .Where(ht => ht.Holding.Wallet.UserId == _userId &&
-                                     ht.HoldingId == _holdingId)
+                                     ht.HoldingId == holdingId)
                         .Select(
                             e => new HoldingTransactionListItem()
                             {
