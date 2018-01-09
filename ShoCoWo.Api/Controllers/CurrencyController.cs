@@ -36,5 +36,16 @@ namespace ShoCoWo.Api.Controllers
 
             return Ok(currencies);
         }
+
+        public IHttpActionResult GetCurrency(int id)
+        {
+            var service = CreateCurrencyService();
+            var currency = service.GetCurrency(id);
+
+            if (currency == null)
+                return BadRequest();
+
+            return Ok(currency);
+        }
     }
 }
