@@ -38,10 +38,9 @@ namespace ShoCoWo.Api.Controllers
 
             holdingservice.UpdateHoldingBalance(model.HoldingId, model.CryptoTransactionAmount);
 
-            walletService.UpdateWalletBalance(
-                model.CryptoTransactionAmount *
-                model.MarketValue
-            );
+            var usdValue = model.CryptoTransactionAmount * model.MarketValue;
+
+            walletService.UpdateWalletBalance(-usdValue);
 
             return Ok();
         }
