@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
+using ShoCoWo.Models.Holding;
 using ShoCoWo.Services;
 
 namespace ShoCoWo.Api.Controllers
@@ -16,6 +17,27 @@ namespace ShoCoWo.Api.Controllers
             var userId = Guid.Parse(User.Identity.GetUserId());
             var service = new HoldingService(userId);
             return service;
+        }
+
+        public IHttpActionResult Post(HoldingCreate model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var service = CreateHoldingService();
+
+            if (!service.CreateHolding(model))
+                return InternalServerError();
+
+            return Ok();
+        }
+
+        public IHttpActionResult GetHoldings()
+        {
+            var service = CreateHoldingService();
+            var holdings = service.GetHoldings();
+
+            return Ok(holdings);
         }
     }
 }
