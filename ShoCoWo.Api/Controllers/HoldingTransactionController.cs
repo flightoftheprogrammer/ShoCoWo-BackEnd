@@ -26,21 +26,23 @@ namespace ShoCoWo.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var service = CreateHoldingTransactionService();
-
-            if (!service.CreateHoldingTransaction(model))
-                return InternalServerError();
-
             var userId = Guid.Parse(User.Identity.GetUserId());
 
             var holdingservice = new HoldingService(userId);
             var walletService = new WalletService(userId);
-
-            holdingservice.UpdateHoldingBalance(model.HoldingId, model.CryptoTransactionAmount);
+            var service = CreateHoldingTransactionService();
 
             var usdValue = model.CryptoTransactionAmount * model.MarketValue;
 
+            if (walletService.GetWallet().WalletBalance - usdValue < 0)
+                return BadRequest();
+
+            if (!service.CreateHoldingTransaction(model))
+                return InternalServerError();
+
             walletService.UpdateWalletBalance(-usdValue);
+
+            holdingservice.UpdateHoldingBalance(model.HoldingId, model.CryptoTransactionAmount);
 
             return Ok();
         }

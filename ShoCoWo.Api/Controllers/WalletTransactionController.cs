@@ -31,6 +31,12 @@ namespace ShoCoWo.Api.Controllers
             if (!service.CreateWalletTransaction(walletTransaction))
                 return InternalServerError();
 
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var walletService = new WalletService(userId);
+
+            if (!walletService.UpdateWalletBalance(walletTransaction.TransactionAmount))
+                return InternalServerError(new Exception("Could not update balance for wallet"));
+
             return Ok();
         }
 
