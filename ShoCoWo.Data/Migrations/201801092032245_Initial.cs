@@ -3,7 +3,7 @@ namespace ShoCoWo.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialTwo : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -25,7 +25,6 @@ namespace ShoCoWo.Data.Migrations
                         WalletId = c.Int(nullable: false),
                         CryptoHoldingBalance = c.Decimal(nullable: false, precision: 18, scale: 2),
                         CurrencyId = c.Int(nullable: false),
-                        MarketValueTotal = c.Decimal(nullable: false, precision: 18, scale: 2),
                     })
                 .PrimaryKey(t => t.HoldingId)
                 .ForeignKey("dbo.Currency", t => t.CurrencyId, cascadeDelete: true)

@@ -31,6 +31,17 @@ namespace ShoCoWo.Api.Controllers
             if (!service.CreateHoldingTransaction(model))
                 return InternalServerError();
 
+            var userId = Guid.Parse(User.Identity.GetUserId());
+
+            var holdingservice = new HoldingService(userId);
+            var walletService = new WalletService(userId);
+
+            holdingservice.UpdateHoldingBalance(model.HoldingId, model.CryptoTransactionAmount);
+
+            var usdValue = model.CryptoTransactionAmount * model.MarketValue;
+
+            walletService.UpdateWalletBalance(-usdValue);
+
             return Ok();
         }
 

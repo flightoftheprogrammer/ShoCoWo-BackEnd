@@ -39,6 +39,7 @@ namespace ShoCoWo.Services
                         .Select(
                             c => new CurrencyListItem()
                             {
+                                CurrencyId = c.CurrencyId,
                                 CurrencyName = c.CurrencyName,
                                 CurrencyNameLong = c.CurrencyNameLong
                             }

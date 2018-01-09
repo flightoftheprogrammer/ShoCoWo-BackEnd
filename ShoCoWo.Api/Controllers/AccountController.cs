@@ -17,6 +17,9 @@ using ShoCoWo.Api.Models;
 using ShoCoWo.Api.Providers;
 using ShoCoWo.Api.Results;
 using ShoCoWo.Data;
+using ShoCoWo.Models.Holding;
+using ShoCoWo.Models.Wallet;
+using ShoCoWo.Services;
 
 namespace ShoCoWo.Api.Controllers
 {
@@ -336,6 +339,37 @@ namespace ShoCoWo.Api.Controllers
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
+            }
+
+            var accountservice = new AccountService();
+            var userId = Guid.Parse(accountservice.GetGuid(user.Email));
+            var walletService = new WalletService(userId);
+
+            var wallet = new WalletCreate
+            {
+                WalletBalance = 0
+            };
+
+            if (!walletService.CreateWallet(wallet))
+                return InternalServerError(new Exception("Error creating Wallet."));
+
+            var currencyService = new CurrencyService();
+            var currencies = currencyService.GetCurrencies();
+
+            foreach (var currency in currencies)
+            {
+                var holdingService = new HoldingService(userId);
+
+                var holding =
+                    new HoldingCreate()
+                    {
+                        CryptoHoldingBalance = 0,
+                        CurrencyId = currency.CurrencyId,
+                        WalletId = walletService.GetWalletId()
+                    };
+
+                if (!holdingService.CreateHolding(holding))
+                    return InternalServerError(new Exception($"Error creating entry for Holding: {holding.CurrencyId}"));
             }
 
             return Ok();

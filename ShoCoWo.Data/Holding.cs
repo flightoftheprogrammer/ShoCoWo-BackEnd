@@ -23,10 +23,6 @@ namespace ShoCoWo.Data
         [Required]
         public int CurrencyId { get; set; }
 
-        [Required]
-        [DefaultValue(0.00)]
-        public decimal MarketValueTotal { get; set; }
-
         public virtual Currency Currency { get; set; }
         public virtual Wallet Wallet { get; set; }
         public virtual ICollection<HoldingTransaction> HoldingTransactions { get; set; }
