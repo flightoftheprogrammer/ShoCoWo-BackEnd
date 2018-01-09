@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountService.cs" />
     <Compile Include="CurrencyService.cs" />
     <Compile Include="HoldingService.cs" />
     <Compile Include="HoldingTransactionService.cs" />

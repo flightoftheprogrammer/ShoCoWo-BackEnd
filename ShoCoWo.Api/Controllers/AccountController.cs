@@ -17,6 +17,8 @@ using ShoCoWo.Api.Models;
 using ShoCoWo.Api.Providers;
 using ShoCoWo.Api.Results;
 using ShoCoWo.Data;
+using ShoCoWo.Models.Wallet;
+using ShoCoWo.Services;
 
 namespace ShoCoWo.Api.Controllers
 {
@@ -337,6 +339,17 @@ namespace ShoCoWo.Api.Controllers
             {
                 return GetErrorResult(result);
             }
+
+            var accountservice = new AccountService();
+            var userId = accountservice.GetGuid(user.Email);
+            var walletService = new WalletService(Guid.Parse(userId));
+
+            var wallet = new WalletCreate
+            {
+                WalletBalance = 0
+            };
+
+            walletService.CreateWallet(wallet);
 
             return Ok();
         }

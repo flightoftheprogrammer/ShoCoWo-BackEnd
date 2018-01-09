@@ -29,7 +29,6 @@ namespace ShoCoWo.Services
                     WalletId = model.WalletId,
                     CryptoHoldingBalance = model.CryptoHoldingBalance,
                     CurrencyId = model.CurrencyId,
-                    MarketValueTotal = model.MarketValueTotal
                 };
 
             using (var ctx = new ApplicationDbContext())
@@ -54,7 +53,6 @@ namespace ShoCoWo.Services
                                 HoldingId = e.HoldingId,
                                 CryptoHoldingBalance = e.CryptoHoldingBalance,
                                 CurrencyId = e.CurrencyId,
-                                MarketValueTotal = e.MarketValueTotal
                             }
                         );
 
@@ -73,22 +71,9 @@ namespace ShoCoWo.Services
                     {
                         HoldingId = entity.HoldingId,
                         CryptoHoldingBalance = entity.CryptoHoldingBalance,
-                        MarketValueTotal = entity.MarketValueTotal,
                         CurrencyId = entity.CurrencyId,
                         WalletId = entity.WalletId
                     };
-            }
-        }
-
-        public bool UpdateMarketValue(int holdingId, decimal amount)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                var entity = GetHoldingById(ctx, holdingId);
-
-                entity.MarketValueTotal += amount;
-
-                return ctx.SaveChanges() == 1;
             }
         }
 
