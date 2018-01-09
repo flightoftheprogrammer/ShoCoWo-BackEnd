@@ -28,7 +28,7 @@ namespace ShoCoWo.Services
                 {
                     WalletId = model.WalletId,
                     CryptoHoldingBalance = model.CryptoHoldingBalance,
-                    CurrencyId = model.CurrencyId,
+                    CurrencyId = model.CurrencyId
                 };
 
             using (var ctx = new ApplicationDbContext())
@@ -42,11 +42,15 @@ namespace ShoCoWo.Services
         {
             using (var ctx = new ApplicationDbContext())
             {
+                var wallet =
+                    ctx
+                        .Wallets
+                        .SingleOrDefault(w => w.WalletId == _walletId);
+
                 var query =
                     ctx
                         .Holdings
-                        .Where(h => h.WalletId == _walletId &&
-                                    h.Wallet.UserId == _userId)
+                        .Where(h => h.WalletId == _walletId)
                         .Select(
                             e => new HoldingListItem()
                             {
