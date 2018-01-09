@@ -51,6 +51,5 @@ namespace ShoCoWo.Api.Controllers
 
             return Ok(transaction);
         }
-
     }
 }
