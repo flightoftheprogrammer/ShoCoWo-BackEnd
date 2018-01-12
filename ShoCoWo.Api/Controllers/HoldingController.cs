@@ -37,10 +37,10 @@ namespace ShoCoWo.Api.Controllers
             var service = CreateHoldingService();
             var holdings = service.GetHoldings();
 
-            if (holdings.Any())
+            if (!holdings.Any())
                 return BadRequest();
 
-            return Ok(!holdings);
+            return Ok(holdings);
         }
 
         public IHttpActionResult GetHolding(int id)
