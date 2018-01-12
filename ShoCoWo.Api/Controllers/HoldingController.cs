@@ -40,7 +40,7 @@ namespace ShoCoWo.Api.Controllers
             if (holdings.Any())
                 return BadRequest();
 
-            return Ok(holdings);
+            return Ok(!holdings);
         }
 
         public IHttpActionResult GetHolding(int id)
