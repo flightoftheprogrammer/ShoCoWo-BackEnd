@@ -42,6 +42,16 @@ namespace ShoCoWo.Data
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder
+                .Entity<HoldingTransaction>()
+                .Property(p => p.CryptoTransactionAmount)
+                .HasPrecision(16, 8);
+
+            modelBuilder
+                .Entity<Holding>()
+                .Property(p => p.CryptoHoldingBalance)
+                .HasPrecision(16, 8);
+
+            modelBuilder
                 .Conventions
                 .Remove<PluralizingTableNameConvention>();
 
@@ -49,6 +59,7 @@ namespace ShoCoWo.Data
                 .Configurations
                 .Add(new IdentityUserLoginConfiguration())
                 .Add(new IdentityUserRoleConfiguration());
+
         }
     }
 

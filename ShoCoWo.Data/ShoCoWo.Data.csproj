@@ -82,6 +82,10 @@
     <Compile Include="Migrations\201801092032245_Initial.Designer.cs">
       <DependentUpon>201801092032245_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801180234300_ChangedCoinPrecision.cs" />
+    <Compile Include="Migrations\201801180234300_ChangedCoinPrecision.Designer.cs">
+      <DependentUpon>201801180234300_ChangedCoinPrecision.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Wallet.cs" />
@@ -94,6 +98,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201801092032245_Initial.resx">
       <DependentUpon>201801092032245_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801180234300_ChangedCoinPrecision.resx">
+      <DependentUpon>201801180234300_ChangedCoinPrecision.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
