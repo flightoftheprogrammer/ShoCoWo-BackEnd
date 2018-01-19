@@ -31,7 +31,6 @@ namespace ShoCoWo.Services
             using (var ctx = new ApplicationDbContext())
             {
                 ctx.HoldingTransactions.Add(entity);
-
                 return ctx.SaveChanges() == 1;
             }
         }
