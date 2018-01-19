@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace ShoCoWo.Data.Migrations
 {
     using System;
@@ -14,18 +16,14 @@ namespace ShoCoWo.Data.Migrations
 
         protected override void Seed(ShoCoWo.Data.ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            var currencies = new List<Currency>
+            {
+                new Currency() {CurrencyId = 1, CurrencyNameLong = "Bitcoin", CurrencyName = "BTC"},
+                new Currency() {CurrencyId = 2, CurrencyName = "ETH", CurrencyNameLong = "Ethereum"}
+            };
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            context.Currencies.AddRange(currencies);
+
         }
     }
 }

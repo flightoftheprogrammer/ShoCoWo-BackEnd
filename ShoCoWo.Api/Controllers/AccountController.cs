@@ -347,7 +347,7 @@ namespace ShoCoWo.Api.Controllers
 
             var wallet = new WalletCreate
             {
-                WalletBalance = 0
+                WalletBalance = 50000
             };
 
             if (!walletService.CreateWallet(wallet))
