@@ -50,5 +50,13 @@ namespace ShoCoWo.Api.Controllers
 
             return Ok(holding);
         }
+
+        public IHttpActionResult GetHoldingByCurrencyId(int id)
+        {
+            var service = CreateHoldingService();
+            var holding = service.GetHoldingByCurrencyId(id);
+
+            return Ok(holding);
+        }
     }
 }
