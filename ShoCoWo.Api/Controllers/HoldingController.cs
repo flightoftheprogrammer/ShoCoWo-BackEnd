@@ -51,10 +51,10 @@ namespace ShoCoWo.Api.Controllers
             return Ok(holding);
         }
 
-        public IHttpActionResult GetHoldingByCurrencyId(int id)
+        public IHttpActionResult GetHoldingByCurrencyId(int currencyId)
         {
             var service = CreateHoldingService();
-            var holding = service.GetHoldingByCurrencyId(id);
+            var holding = service.GetHoldingByCurrencyId(currencyId);
 
             return Ok(holding);
         }
