@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using ShoCoWo.Data;
@@ -78,6 +79,28 @@ namespace ShoCoWo.Services
                         CurrencyId = entity.CurrencyId,
                         WalletId = entity.WalletId
                     };
+            }
+        }
+
+        public HoldingDetail GetHoldingByCurrencyId(int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var query =
+                    ctx
+                        .Holdings
+                        .Where(h => h.WalletId == _walletId &&
+                                    h.CurrencyId == id)
+                        .Select(h =>
+                            new HoldingDetail()
+                            {
+                                HoldingId = h.HoldingId,
+                                WalletId = h.WalletId,
+                                CryptoHoldingBalance = h.CryptoHoldingBalance,
+                                CurrencyId = h.CurrencyId
+                            });
+
+                return query.FirstOrDefault();
             }
         }
 
