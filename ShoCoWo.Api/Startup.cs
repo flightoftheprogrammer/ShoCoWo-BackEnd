@@ -34,7 +34,7 @@ namespace ShoCoWo.Api
                     roleManager.Create(role);
 
                     var user = new ApplicationUser();
-                    user.UserName = "admin";
+                    user.UserName = "admin@admin.com";
                     user.Email = "admin@admin.com";
 
                     string userPassword = "Test1!";

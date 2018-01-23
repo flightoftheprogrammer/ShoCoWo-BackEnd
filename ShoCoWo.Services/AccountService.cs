@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ShoCoWo.Data;
+using ShoCoWo.Models.User;
 
 namespace ShoCoWo.Services
 {
@@ -19,6 +20,25 @@ namespace ShoCoWo.Services
                         .SingleOrDefault(u => u.Email == email);
 
                 return user?.Id;
+            }
+        }
+
+        public ICollection<UserListItem> GetAllUsers()
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var users =
+                    ctx
+                        .Users
+                        .Select(
+                            u => new UserListItem()
+                            {
+                                UserName = u.UserName,
+                                Email = u.Email,
+                                UserId = u.Id
+                            });
+
+                return users.ToList();
             }
         }
     }
