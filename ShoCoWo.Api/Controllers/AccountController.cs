@@ -126,6 +126,15 @@ namespace ShoCoWo.Api.Controllers
             return User.IsInRole("admin");
         }
 
+        [Authorize(Roles = "admin")]
+        [Route("GetUsers")]
+        public IHttpActionResult GetUsers()
+        {
+            var accountService = new AccountService();
+            var accounts = accountService.GetAllUsers();
+            return Ok(accounts);
+        }
+
         // POST api/Account/ChangePassword
         [Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
