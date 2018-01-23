@@ -51,6 +51,8 @@ namespace ShoCoWo.Api.Controllers
             return Ok(holding);
         }
 
+
+        [Route("GetHoldingByCurrency")]
         public IHttpActionResult GetHoldingByCurrencyId(int currencyId)
         {
             var service = CreateHoldingService();
